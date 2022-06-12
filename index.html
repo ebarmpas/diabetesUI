@@ -9,6 +9,15 @@
 	</head>
 	<body>
 		<h2>Get data</h2>
+		<p>
+			If you type in the name of the patient, you will get all the stored days about him.
+			If you specify a higher and lower bound date, you will only get the data within that range.
+			Same applies for getting the averages.
+			If you chose to list days, whether all of them or just some within a range,
+			at the bottom of the page there is a chart showing the glucose and carb intake levels.
+			If the fields are not filled in properly (missing fields), the requests won't be sent.
+		</p>
+
 		<textarea id="queryName" placeholder="Name"></textarea>
 		<br></br>
 		<textarea id="yearLow" placeholder="Lower bound year"></textarea>
@@ -25,7 +34,12 @@
 		<button id="action" onclick = "getDataFromREST('patients')" >get all patients</button>
 		<br></br>
 		<textarea id="results" placeholder="results" rows="25" cols="150"></textarea>
-		<h2>Delete/Add data</h2>
+		<h2>Add data</h2>
+		<p>
+			In order to add a patient you only need to fill in the name box.
+			If you want to add a day, you need to fill in the name box, the date
+			and the parameters (Glucose, carb intake, and medication dose)
+		</p>
 		
 		<textarea id="addName" placeholder="Name"></textarea>
 		<br></br>
@@ -118,6 +132,7 @@
 				success: 
 					function (resultData) { 
 						data = resultData;
+						console.log(data);
 						if(cause == 'list'){
 							myChart.data.labels = [];
 							myChart.data.datasets[0].data = [];
@@ -131,9 +146,9 @@
 							}
 							myChart.update();
 						}
-						console.log(myChart.data.labels);
-						console.log(myChart.data.datasets[0].data);
-						console.log(myChart.data.datasets[1].data);
+						// console.log(myChart.data.labels);
+						// console.log(myChart.data.datasets[0].data);
+						// console.log(myChart.data.datasets[1].data);
 						document.getElementById("results").value = JSON.stringify(data);	
 					},
 				error : 
